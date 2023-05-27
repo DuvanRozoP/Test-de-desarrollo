@@ -1,0 +1,92 @@
+@mixin buttoncustom($fondo) {
+  border-radius: 20px;
+  background-color: $fondo;
+}
+
+.containerCoupon {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+.coupon {
+  width: 80%;
+  max-width: 600px;
+  min-width: 300px;
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  & div {
+    gap: 10px;
+  }
+
+  .couponTitle {
+    color: var(--color-blue);
+  }
+
+  .options {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 10px;
+
+    .btnCoupon {
+      border-radius: 20px;
+      background-color: var(--color-gray);
+    }
+
+    .select {
+      border-radius: 20px;
+      background-color: var(--color-blue);
+    }
+  }
+}
+.coupons {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  max-width: 600px;
+  min-width: 300px;
+  padding: 15px 25px 10px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  & div:first-of-type {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    & span::before {
+      content: '$';
+    }
+  }
+
+  & div:last-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+
+    & strong {
+      font-weight: 600;
+    }
+
+    & button {
+      padding: 20px;
+      min-width: 25%;
+      border-radius: 20px;
+      background-color: var(--color-bt-green);
+    }
+  }
+
+  & > p {
+    & > span {
+      color: var(--color-blue);
+    }
+  }
+}
