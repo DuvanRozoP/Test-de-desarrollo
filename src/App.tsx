@@ -1,11 +1,7 @@
-import { Button } from '@/ui/button';
+import Coupon from './components/history/Coupon/Coupon';
 
 function App() {
-  return (
-    <>
-      <Button>Hola</Button>
-    </>
-  );
+  return <Coupon />;
 }
 
 export default App;

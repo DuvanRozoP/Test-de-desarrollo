@@ -1,15 +1,51 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Button } from '../../ui/button';
 import { Card, CardHeader, CardTitle } from '../../ui/card';
-import { Separator } from '../../ui/separator';
+import json from '../../../data/coupons.json';
+
+import Coupons from './Coupons';
+import type { CouponsProps } from './Coupons';
 
 function Coupon() {
+  const [, setCoupons] = useState<CouponsProps[]>([]);
   const [select, setSelecte] = useState<string>('');
 
   const handleSelectButton = (event: React.MouseEvent<HTMLButtonElement>) => {
     setSelecte(event.currentTarget.value);
   };
+
+  useEffect(() => {
+    setCoupons(() => {
+      switch (select) {
+        case 'Disponible':
+          return json.filter(
+            coupon => new Date(coupon.expired_date) >= new Date(),
+          );
+        case 'Vencidos':
+          return json.filter(
+            coupon => new Date(coupon.expired_date) < new Date(),
+          );
+        default:
+          return json;
+      }
+    });
+  }, [select]);
+
+  const filteredCoupons = useMemo(() => {
+    switch (select) {
+      case 'Disponible':
+        return json.filter(
+          coupon => new Date(coupon.expired_date) >= new Date(),
+        );
+      case 'Vencidos':
+        return json.filter(
+          coupon => new Date(coupon.expired_date) < new Date(),
+        );
+      default:
+        return json;
+    }
+  }, [select]);
 
   return (
     <section className="containerCoupon">
@@ -35,29 +71,14 @@ function Coupon() {
         </CardHeader>
       </Card>
 
-      <Card id="20" className="coupons">
-        <div>
-          <p>
-            <strong>
-              Cupon <span>{Number(12000).toLocaleString()}</span>
-            </strong>
-          </p>
-          <p>
-            <strong>Te queda 1 de 1</strong>
-          </p>
-        </div>
-        <p>
-          Codigo: <span>TRRG54</span>
-        </p>
-        <p>Vence: 18 - 01 - 2023</p>
-        <Separator className="my-2" />
-        <div>
-          <p>
-            Terminos y condiciones de cupon <strong>&gt;</strong>
-          </p>
-          <Button>Usar cupon</Button>
-        </div>
-      </Card>
+      {filteredCoupons.map(({ code, expired_date, value, quantity }) => (
+        <Coupons
+          code={code}
+          expired_date={expired_date}
+          value={value}
+          quantity={quantity}
+        />
+      ))}
     </section>
   );
 }
