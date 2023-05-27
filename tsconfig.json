@@ -26,6 +26,6 @@
       "@/ui/*": ["./src/components/ui/*"]
     }
   },
-  "include": ["src", "components/ui"],
+  "include": ["src", "public"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
